@@ -1,41 +1,13 @@
 # Commands
 
-## Prerequisites
-
-If you don't have [Homebrew](https://brew.sh) on your Mac then first run the following:
-
-```bash
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-You will need Java installed:
-
-```bash
-$ brew cask install java
-```
-
-And now install Kafka, which will include Zookeeper:
-
-```bash
-$ brew install kafka
-```
-
-Note that Zookeeper and Kafka can be booted with the following commands, though we won't need these since we have a **docker-compose** file to boot clusters including access to a UI via a REST service.
-
-```bash
-$ zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties
-
-$ kafka-server-start /usr/local/etc/kafka/server.properties
-```
-
-## Boot Zookeeper and Kafka Clusters with Docker Compose
+## Boot Zookeeper and Kafka Cluster with Docker Compose
 
 We can boot Kafka (and other configured services) with **Docker Compose**. Under the directory [src/it/resources](src/it/resources) are several docker compose files.
 
-Navigate to the [docker-compose file](src/it/resources/docker-compose.yml) and run the default:
+Navigate to the [Docker Compose Cluster file](src/it/resources/docker-compose-cluster.yml) and run the default:
 
 ```bash
-$ docker-compose up
+$ docker-compose -f docker-compose-cluster.yml up
 ```
 
 Or if you have the project open in [IntelliJ](https://www.jetbrains.com/idea/) right click the file and select run (convenient to view logs, environment variables etc):
@@ -94,6 +66,8 @@ Topic:topic-1	PartitionCount:1	ReplicationFactor:1	Configs:
 	Topic: topic-1	Partition: 0	Leader: 101	Replicas: 101	Isr: 101
 ```
 
+Where **Replicas** shows a list of the brokers (the **client ID**) for the topic, and the **Leader** shows the **client ID** of the broker that is the acting leader i.e. which broker/partition is handling writes and reads to said topic.
+
 ## Produce Messages
 
 ```bash
@@ -124,12 +98,12 @@ $ kafka-topics --zookeeper localhost:2181 --create --topic mockaroo --partitions
 Created topic "mockaroo".
 ```
 
-We are going to get ready made mock data from [Mockaroo](https://mockaroo.com) and pipe it into **kafka-console-producer**. Mockaroo generates mock datasets (and we can stipulate how many records we desire up to 1000). We run the following script which loops forever.
+We are going to get ready made mock data from [Mockaroo](https://mockaroo.com) and pipe it into **kafka-console-producer**. Mockaroo generates mock datasets (and we can stipulate how many records we desire up to 1000). We run the following script which loops forever, by providing the name of the topic where the automatically generated data is published.
 
 Within [it/resources/kafka](it/resources/kafka):
 
 ```bash
-$ ./mockaroo.sh
+$ ./mockaroo.sh mockaroo
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100    67    0    67    0     0     91      0 --:--:-- --:--:-- --:--:--    91

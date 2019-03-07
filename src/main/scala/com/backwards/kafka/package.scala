@@ -45,15 +45,15 @@ package object kafka extends LazyLogging {
 
     Option(System.getProperty("config.file")).map(new File(_)) match {
       case Some(file) if file.exists() =>
-        configure(loadFile(file, "kafka"))(s"Loaded Kafka producer configuration from file ${file.getAbsolutePath}")
+        configure(loadFile(file, "kafka"))(s"Loaded Kafka consumer configuration from file ${file.getAbsolutePath}")
 
       case None =>
         Option(System.getProperty("config.resource")) match {
           case Some(resource) =>
-            configure(loadResource(resource, "kafka"))(s"Loaded Kafka producer configuration from resource $resource")
+            configure(loadResource(resource, "kafka"))(s"Loaded Kafka consumer configuration from resource $resource")
 
           case None =>
-            configure(default)("Loaded default Kafka producer configuration")
+            configure(default)("Loaded default Kafka consumer configuration")
         }
     }
   }

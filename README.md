@@ -1,9 +1,22 @@
 # Kafka
 
-- [Introduction](docs/introduction.md)
-
+- [Kafka?](docs/about.md)
+  - Advantages/Disadvantages
+  - Alternatives
 - [Architecture](docs/architecture.md)
-
+  - Terminology
+  - Cluster
+  - Zookeeper
+  - Persistence/Commit logs aka Topics
+  - Partitions
+  - Replication
+- [Setup](docs/setup.md)
+  - Kafka tools
+  - Docker / Docker Compose
 - [Commands](docs/commands.md)
-
-- [SBT/Scala](docs/sbt.md)
+  - CLI
+- [Demo - Scala](docs/sbt.md)
+  - Kafka with Scala
+  - Protocols such as JSON and Avro
+  - Schemas
+  - Kafka Streams
