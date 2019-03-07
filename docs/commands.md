@@ -91,14 +91,14 @@ England 0
 Scotland 7
 ```
 
-## Test Produce/Consume of Multiple Messages
+## Test Produce/Consume Multiple Messages
 
 ```bash
 $ kafka-topics --zookeeper localhost:2181 --create --topic mockaroo --partitions 3 --replication-factor 1
 Created topic "mockaroo".
 ```
 
-We are going to get ready made mock data from [Mockaroo](https://mockaroo.com) and pipe it into **kafka-console-producer**. Mockaroo generates mock datasets (and we can stipulate how many records we desire up to 1000). We run the following script which loops forever, by providing the name of the topic where the automatically generated data is published.
+We are going to get ready made mock data from [Mockaroo](https://mockaroo.com) and pipe it into **kafka-console-producer**. Mockaroo generates mock datasets (and we can stipulate how many records we desire up to 1000). We run the following script providing the name of the topic where the automatically generated data should be published.
 
 Within [it/resources/kafka](it/resources/kafka):
 
@@ -114,6 +114,8 @@ $ ./mockaroo.sh mockaroo
                                  Dload  Upload   Total   Spent    Left  Speed
 100    65    0    65    0     0     83      0 --:--:-- --:--:-- --:--:--    83
 ```
+
+(Enter **q or Q** to quit the script)
 
 As the messages are generated and piped to **kafka-console-producer**, and then the messages end up in Kafka, we could view 3 separate log files (under [src/it/resources/kafka](src/it/resources/kafka)) for the 3 partitions and see them grow in size. If Kafka was booted with Landoop, we can view the UI:
 
@@ -135,5 +137,15 @@ $ kafka-console-consumer --bootstrap-server localhost:9092 --topic mockaroo
 1,Patrick,Fiander,pfiander0@nature.com,Male,198.210.101.236
 1,Dona,Eason,deason0@studiopress.com,Female,43.248.196.61
 1,Fred,Hatwell,fhatwell0@symantec.com,Female,100.58.28.161
+```
+
+A consumer can either start consuming from:
+
+- Beginning of the log
+- Await the latest entry i.e. point at the end of the log
+- Start at a specific index as the consumer can save said index
+
+```bash
+$ kafka-console-consumer --bootstrap-server localhost:9092 --topic mockaroo --from-beginning
 ```
 
