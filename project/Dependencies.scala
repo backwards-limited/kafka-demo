@@ -5,7 +5,7 @@ object Dependencies {
     Seq(
       scalaReflect, scalatest, scalacheck, pprint, pureConfig, logback,
       cats, simulacrum, monocle, shapeless, kittens,
-      circe, protobuf, monixKafka
+      circe, protobuf, avro4s, monixKafka
     ).flatten
 
   lazy val scalaReflect: Seq[ModuleID] = Seq(
@@ -92,6 +92,15 @@ object Dependencies {
   lazy val protobuf: Seq[ModuleID] = Seq(
     "com.google.protobuf" % "protobuf-java" % "3.7.0-rc1" force()
   )
+  
+  lazy val avro4s: Seq[ModuleID] = {
+    val version = "2.0.4"
+
+    Seq(
+      "com.sksamuel.avro4s" %% "avro4s-core",
+      "com.sksamuel.avro4s" %% "avro4s-kafka"
+    ).map(_ % version)
+  }
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
     "io.monix" %% "monix-kafka-1x" % "1.0.0-RC2"

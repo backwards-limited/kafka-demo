@@ -149,3 +149,8 @@ A consumer can either start consuming from:
 $ kafka-console-consumer --bootstrap-server localhost:9092 --topic mockaroo --from-beginning
 ```
 
+## Performance Test Produce/Consume Multiple Messages
+
+https://stackoverflow.com/questions/40131580/is-there-any-simulator-tool-to-generate-messages-for-streaming
+
+kafka-producer-perf-test
