@@ -19,7 +19,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with LazyLogging {
 
   "An ADT" should {
     "be serialized/deserialized to Kafka as AVRO" in {
-      val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("my-group-8"))
+      //val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("my-group-8"))
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
@@ -27,8 +27,8 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with LazyLogging {
       val Some(recordMetadata) = task.runSyncUnsafe()
       logger info s"Published: ${recordMetadata.show}"
 
-      val (key, value) = kafkaConsumer.pollHead()
-      logger info s"Consumed key: $key, value: $value"
+      /*val (key, value) = kafkaConsumer.pollHead()
+      logger info s"Consumed key: $key, value: $value"*/
     }
   }
 }

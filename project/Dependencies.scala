@@ -5,7 +5,7 @@ object Dependencies {
     Seq(
       scalaReflect, scalatest, scalacheck, pprint, pureConfig, logback,
       cats, simulacrum, monocle, shapeless, kittens,
-      circe, protobuf, avro4s, monixKafka
+      betterFiles, circe, protobuf, avro4s, avroTools, monixKafka
     ).flatten
 
   lazy val scalaReflect: Seq[ModuleID] = Seq(
@@ -74,6 +74,10 @@ object Dependencies {
     "org.typelevel" %% "kittens" % "1.2.1"
   )
 
+  lazy val betterFiles: Seq[ModuleID] = Seq(
+    "com.github.pathikrit" %% "better-files" % "3.7.1"
+  )
+
   lazy val circe: Seq[ModuleID] = {
     val version = "0.11.1"
 
@@ -101,6 +105,10 @@ object Dependencies {
       "com.sksamuel.avro4s" %% "avro4s-kafka"
     ).map(_ % version)
   }
+  
+  lazy val avroTools: Seq[ModuleID] = Seq(
+    "org.apache.avro" % "avro-tools" % "1.8.2"
+  )
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
     "io.monix" %% "monix-kafka-1x" % "1.0.0-RC2"

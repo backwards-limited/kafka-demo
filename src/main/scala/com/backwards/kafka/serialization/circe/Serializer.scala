@@ -15,7 +15,7 @@ class Serializer[T <: Product: Encoder] extends ApacheSerializer[T] {
 }
 
 object Serializer {
-  def apply[T <: Product: Encoder](): ApacheSerializer[T] = serializer[T].create()
+  def apply[T <: Product: Encoder]: ApacheSerializer[T] = serializer[T].create()
 
   implicit def serializer[T <: Product: Encoder]: MonixSerializer[T] = MonixSerializer[T](
     className = Serializer.getClass.getName,

@@ -19,7 +19,7 @@ class Deserializer[T <: Product: Decoder] extends ApacheDeserializer[T] {
 }
 
 object Deserializer {
-  def apply[T <: Product: Decoder](): ApacheDeserializer[T] = deserializer[T].create()
+  def apply[T <: Product: Decoder]: ApacheDeserializer[T] = deserializer[T].create()
 
   implicit def deserializer[T <: Product: Decoder]: MonixDeserializer[T] = MonixDeserializer[T](
     className = Deserializer.getClass.getName,
