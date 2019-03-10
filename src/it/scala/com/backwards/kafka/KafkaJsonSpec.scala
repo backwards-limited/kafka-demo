@@ -1,34 +1,37 @@
 package com.backwards.kafka
 
 import cats.syntax.show._
+import io.circe.Json
 import io.circe.generic.auto._
+import io.circe.syntax._
 import monix.eval.Task
 import monix.execution.Scheduler
 import monocle.macros.syntax.lens._
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.adt.Foo
+import com.backwards.console.Console
 import com.backwards.kafka.RecordMetadataShow._
+import com.backwards.kafka.serialization.circe.Deserializer._
 import com.backwards.kafka.serialization.circe.Serializer._
-import com.typesafe.scalalogging.LazyLogging
 
-class KafkaJsonSpec extends WordSpec with MustMatchers with LazyLogging {
+class KafkaJsonSpec extends WordSpec with MustMatchers with Console {
   implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
-  val topic = "my-topic"
+  val topic = "json"
 
   "An ADT" should {
     "be serialized/deserialized to Kafka as JSON" in {
-      val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("my-group-8"))
+      val kafkaConsumer = KafkaConsumer[String, Json](topic, kafkaConsumerConfig.lens(_.groupId).set("json-group"))
 
-      val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
+      val kafkaProducer = KafkaProducer[String, Json](topic, kafkaProducerConfig)
 
-      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("my-foo", Foo("some-thing"))
+      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("my-foo", Foo("some-thing").asJson)
       val Some(recordMetadata) = task.runSyncUnsafe()
-      logger info s"Published: ${recordMetadata.show}"
+      out("Published", recordMetadata.show)
 
       val (key, value) = kafkaConsumer.pollHead()
-      logger info s"Consumed key: $key, value: $value"
+      out("Consumed", s"key: $key, value: ${value.spaces2}")
     }
   }
 }

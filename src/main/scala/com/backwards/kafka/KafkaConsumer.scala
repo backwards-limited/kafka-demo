@@ -13,7 +13,7 @@ class KafkaConsumer[K, V](topic: String, config: KafkaConsumerConfig)(implicit K
   val underlying: ApacheKafkaConsumer[K, V] = {
     val observable: Task[ApacheKafkaConsumer[K, V]] = KafkaConsumerObservable.createConsumer[K, V](config, List(topic))
     val consumer = observable runSyncUnsafe 10.seconds
-    consumer poll 0.seconds
+    consumer poll 1.second
     consumer
   }
 }

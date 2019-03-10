@@ -8,24 +8,25 @@ import monocle.macros.syntax.lens._
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.adt.Foo
+import com.backwards.console.Console
 import com.backwards.kafka.RecordMetadataShow._
-import com.backwards.kafka.serialization.circe.Serializer._
+import com.backwards.kafka.serialization.avro.data.Serializer._
 import com.typesafe.scalalogging.LazyLogging
 
-class KafkaAvroSpec extends WordSpec with MustMatchers with LazyLogging {
+class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
   implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
-  val topic = "my-topic"
+  val topic = "avro"
 
   "An ADT" should {
     "be serialized/deserialized to Kafka as AVRO" in {
-      //val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("my-group-8"))
+      //val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group"))
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
       val task: Task[Option[RecordMetadata]] = kafkaProducer.send("my-foo", Foo("some-thing"))
       val Some(recordMetadata) = task.runSyncUnsafe()
-      logger info s"Published: ${recordMetadata.show}"
+      out("Published", recordMetadata.show)
 
       /*val (key, value) = kafkaConsumer.pollHead()
       logger info s"Consumed key: $key, value: $value"*/

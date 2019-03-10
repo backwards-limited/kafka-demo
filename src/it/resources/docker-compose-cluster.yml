@@ -119,3 +119,15 @@ services:
     environment:
       KAFKA_REST_PROXY_URL: kafka-rest-proxy:8082
       PROXY: "true"
+
+  kafka-manager:
+    image: hlebalbau/kafka-manager:stable
+    ports:
+      - 9000:9000
+    depends_on:
+      - zookeeper1
+      - kafka1
+    environment:
+      ZK_HOSTS: "zookeeper1:2181"
+      APPLICATION_SECRET: "random-secret"
+    command: -Dpidfile.path=/dev/null

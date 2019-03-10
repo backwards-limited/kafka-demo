@@ -3,9 +3,9 @@ import sbt._
 object Dependencies {
   lazy val dependencies: Seq[ModuleID] =
     Seq(
-      scalaReflect, scalatest, scalacheck, pprint, pureConfig, logback,
+      scalaReflect, scalatest, scalacheck, pprint, pureConfig, logback, fansi,
       cats, simulacrum, monocle, shapeless, kittens,
-      betterFiles, circe, protobuf, avro4s, avroTools, monixKafka
+      betterFiles, circe, protobuf, avro4s, monixKafka
     ).flatten
 
   lazy val scalaReflect: Seq[ModuleID] = Seq(
@@ -35,6 +35,10 @@ object Dependencies {
 
   lazy val logback: Seq[ModuleID] = Seq(
     "ch.qos.logback" % "logback-classic" % "1.2.3"
+  )
+
+  lazy val fansi: Seq[ModuleID] = Seq(
+    "com.lihaoyi" %% "fansi" % "0.2.5"
   )
 
   lazy val cats: Seq[ModuleID] = {
@@ -105,10 +109,6 @@ object Dependencies {
       "com.sksamuel.avro4s" %% "avro4s-kafka"
     ).map(_ % version)
   }
-  
-  lazy val avroTools: Seq[ModuleID] = Seq(
-    "org.apache.avro" % "avro-tools" % "1.8.2"
-  )
 
   lazy val monixKafka: Seq[ModuleID] = Seq(
     "io.monix" %% "monix-kafka-1x" % "1.0.0-RC2"

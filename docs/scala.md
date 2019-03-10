@@ -6,6 +6,16 @@
 $ sbt it:test
 ```
 
+---
+
+Kafka really only know about **bytes**.
+
+## ADT
+
+In our application / services, we don't deal in bytes. Ideally with deal with **Algebraic Data Types** (ADT).
+
+When our ADT meets Kafka, we need to **serialize** our ADT to bytes to be able to commit to a Kafka topic. Then upon consuming the bytes we wish to reverse that process and **deserialize** said bytes back to our ADT. However, since services are decoupled, an ADT in one system is probably different from that of another. In fact different systems may well be coded in different languages. So we need our systems to communicate via some form of protocol that is agnostic to the chosen technologies. Examples are **JSON**, **Avro** and **Protobuf**.
+
 ## JSON
 
 
