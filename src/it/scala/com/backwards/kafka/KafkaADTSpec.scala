@@ -27,10 +27,10 @@ class KafkaADTSpec extends WordSpec with MustMatchers with Console {
 
       val task: Task[Option[RecordMetadata]] = kafkaProducer.send("foo-key", Foo("some-thing"))
       val Some(recordMetadata) = task.runSyncUnsafe()
-      out("Published", recordMetadata.show)
+      out(s"Published to $topic", recordMetadata.show)
 
       val (key, value) = kafkaConsumer.pollHead()
-      out("Consumed", s"key: $key, value: ${value.show}")
+      out(s"Consumed from $topic", s"key: $key, value: ${value.show}")
     }
   }
 }

@@ -16,28 +16,28 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
 
   "An ADT" should {
     "be serialized/deserialized to Kafka as Avro including schema" in {
-      import com.backwards.kafka.serialization.avro.data.Deserializer._
-      import com.backwards.kafka.serialization.avro.data.Serializer._
+      import com.backwards.kafka.serialization.avro.Deserializer.Data._
+      import com.backwards.kafka.serialization.avro.Serializer.Data._
 
       val topic = "avro-with-schema"
 
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group-with-schema"))
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
       val task: Task[Option[RecordMetadata]] = kafkaProducer.send("foo-key", Foo("some-thing"))
       val Some(recordMetadata) = task.runSyncUnsafe()
-      out("Published", recordMetadata.show)
+      out(s"Published to $topic", recordMetadata.show)
 
       val (key, value) = kafkaConsumer.pollHead()
-      out("Consumed", s"key: $key, value: ${value.show}")
+      out(s"Consumed from $topic", s"key: $key, value: ${value.show}")
     }
 
     "be serialized/deserialized to Kafka as Avro excluding schema" in {
-      import com.backwards.kafka.serialization.avro.binary.Deserializer._
-      import com.backwards.kafka.serialization.avro.binary.Serializer._
+      import com.backwards.kafka.serialization.avro.Deserializer.Binary._
+      import com.backwards.kafka.serialization.avro.Serializer.Binary._
 
-      val topic = "avro-with-schema"
+      val topic = "avro"
 
       val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group"))
 
@@ -45,10 +45,10 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
 
       val task: Task[Option[RecordMetadata]] = kafkaProducer.send("foo-key", Foo("some-thing"))
       val Some(recordMetadata) = task.runSyncUnsafe()
-      out("Published", recordMetadata.show)
+      out(s"Published to $topic", recordMetadata.show)
 
       val (key, value) = kafkaConsumer.pollHead()
-      out("Consumed", s"key: $key, value: ${value.show}")
+      out(s"Consumed from $topic", s"key: $key, value: ${value.show}")
     }
   }
 }
