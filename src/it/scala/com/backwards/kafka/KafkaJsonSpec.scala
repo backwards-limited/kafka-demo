@@ -21,7 +21,7 @@ class KafkaJsonSpec extends WordSpec with MustMatchers with Console {
   val topic = "json"
 
   "An ADT" should {
-    "be serialized/deserialized to Kafka as JSON" in {
+    "be serialized/deserialized to Kafka as Json" in {
       val kafkaConsumer = KafkaConsumer[String, Json](topic, kafkaConsumerConfig.lens(_.groupId).set("json-group"))
 
       val kafkaProducer = KafkaProducer[String, Json](topic, kafkaProducerConfig)

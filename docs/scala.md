@@ -1,10 +1,18 @@
 # Scala
 
-## Run Integration Tests
+## Unit Tests
+
+```bash
+$ sbt test
+```
+
+## Integration Tests
 
 ```bash
 $ sbt it:test
 ```
+
+Note that all tests have **no assertions** - for a demo this is for illustration purposes only (assertions are boring in a demo).
 
 ---
 

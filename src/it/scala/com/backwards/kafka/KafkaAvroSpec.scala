@@ -11,7 +11,6 @@ import com.backwards.adt.Foo
 import com.backwards.console.Console
 import com.backwards.kafka.RecordMetadataShow._
 import com.backwards.kafka.serialization.avro.data.Serializer._
-import com.typesafe.scalalogging.LazyLogging
 
 class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
   implicit val scheduler: Scheduler = monix.execution.Scheduler.global
@@ -19,7 +18,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
   val topic = "avro"
 
   "An ADT" should {
-    "be serialized/deserialized to Kafka as AVRO" in {
+    "be serialized/deserialized to Kafka as Avro" in {
       //val kafkaConsumer = KafkaConsumer[String, String](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group"))
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
