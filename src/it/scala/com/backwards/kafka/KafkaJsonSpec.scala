@@ -26,7 +26,7 @@ class KafkaJsonSpec extends WordSpec with MustMatchers with Console {
 
       val kafkaProducer = KafkaProducer[String, Json](topic, kafkaProducerConfig)
 
-      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("my-foo", Foo("some-thing").asJson)
+      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("foo-key", Foo("some-thing").asJson)
       val Some(recordMetadata) = task.runSyncUnsafe()
       out("Published", recordMetadata.show)
 

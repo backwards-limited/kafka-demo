@@ -1,29 +1,23 @@
 package com.backwards.kafka.serialization.circe
 
-import java.util
 import io.circe.Decoder
-import io.circe.parser._
 import monix.kafka.{Deserializer => MonixDeserializer}
-import org.apache.kafka.common.errors.SerializationException
 import org.apache.kafka.common.serialization.{Deserializer => ApacheDeserializer}
+import com.backwards.json.{Deserializer => JsonDeserializer}
+import com.backwards.kafka.serialization.{DefaultKafkaDeserializer, DefaultMonixDeserializer}
 
-class Deserializer[T <: Product: Decoder] extends ApacheDeserializer[T] {
-  override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = ()
+class Deserializer[T <: Product: Decoder] extends DefaultKafkaDeserializer[T] {
+  val deserializer: JsonDeserializer[T] =
+    JsonDeserializer[T]
 
   override def deserialize(topic: String, data: Array[Byte]): T =
-    Option(data).fold(null.asInstanceOf[T]) { data =>
-      decode[T](new String(data)).fold(error => throw new SerializationException(error), identity)
-    }
-
-  override def close(): Unit = ()
+    deserializer deserialize data
 }
 
-object Deserializer {
-  def apply[T <: Product: Decoder]: ApacheDeserializer[T] = deserializer[T].create()
+object Deserializer extends DefaultMonixDeserializer {
+  def apply[T <: Product: Decoder]: ApacheDeserializer[T] =
+    deserializer[T].create()
 
-  implicit def deserializer[T <: Product: Decoder]: MonixDeserializer[T] = MonixDeserializer[T](
-    className = Deserializer.getClass.getName,
-    classType = classOf[Deserializer[T]],
-    constructor = _ => new Deserializer[T]
-  )
+  implicit def deserializer[T <: Product: Decoder]: MonixDeserializer[T] =
+    monixDeserializer(new Deserializer[T])
 }

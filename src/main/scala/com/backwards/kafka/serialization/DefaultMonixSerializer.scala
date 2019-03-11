@@ -1,12 +1,12 @@
 package com.backwards.kafka.serialization
 
-import org.apache.kafka.common.serialization.Serializer
 import monix.kafka.{Serializer => MonixSerializer}
+import org.apache.kafka.common.serialization.{Serializer => KafkaSerializer}
 
 trait DefaultMonixSerializer {
-  def monixSerializer[T](serializer: => Serializer[T]): MonixSerializer[T] = MonixSerializer[T](
+  def monixSerializer[T](serializer: => KafkaSerializer[T]): MonixSerializer[T] = MonixSerializer[T](
     className = serializer.getClass.getName,
-    classType = classOf[Serializer[T]],
+    classType = serializer.getClass,
     constructor = _ => serializer
   )
 }
