@@ -3,7 +3,7 @@ package com.backwards.kafka.serialization.avro
 import monix.kafka.{Deserializer => MonixDeserializer}
 import org.apache.avro.Schema
 import org.apache.kafka.common.serialization.{Deserializer => KafkaDeserializer}
-import com.backwards.avro.{Deserializer => AvroDeserializer}
+import com.backwards.avro.{SchemaId, Deserializer => AvroDeserializer}
 import com.backwards.kafka.serialization.{DefaultKafkaDeserializer, DefaultMonixDeserializer}
 import com.sksamuel.avro4s.{AvroSchema, Decoder, SchemaFor}
 import com.typesafe.scalalogging.LazyLogging
@@ -28,19 +28,27 @@ object Deserializer extends DefaultMonixDeserializer {
       monixDeserializer(new Deserializer[T](AvroDeserializer.Data[T]))
   }
 
-  object Binary {
-    def apply[T <: Product: SchemaFor: Decoder]: KafkaDeserializer[T] =
-      deserializer[T].create()
-
-    implicit def deserializer[T <: Product: SchemaFor: Decoder]: MonixDeserializer[T] =
-      monixDeserializer(new Deserializer[T](AvroDeserializer.Binary[T]))
-  }
-
   object Json {
     def apply[T <: Product: SchemaFor: Decoder]: KafkaDeserializer[T] =
       deserializer[T].create()
 
     implicit def deserializer[T <: Product: SchemaFor: Decoder]: MonixDeserializer[T] =
       monixDeserializer(new Deserializer[T](AvroDeserializer.Json[T]))
+  }
+
+  object Binary {
+    def apply[T <: Product: SchemaFor: Decoder]: KafkaDeserializer[T] =
+      deserializer[T].create()
+
+    implicit def deserializer[T <: Product: SchemaFor: Decoder]: MonixDeserializer[T] =
+      monixDeserializer(new Deserializer[T](AvroDeserializer.Binary[T]))
+
+    object Schema {
+      def apply[T <: Product: SchemaId: SchemaFor: Decoder]: KafkaDeserializer[T] =
+        deserializer[T].create()
+
+      implicit def deserializer[T <: Product: SchemaId: SchemaFor: Decoder]: MonixDeserializer[T] =
+        monixDeserializer(new Deserializer[T](AvroDeserializer.Binary.Schema[T]))
+    }
   }
 }
