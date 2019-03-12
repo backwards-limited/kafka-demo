@@ -3,7 +3,7 @@ package com.backwards.kafka.serialization.avro
 import monix.kafka.{Serializer => MonixSerializer}
 import org.apache.avro.Schema
 import org.apache.kafka.common.serialization.{Serializer => KafkaSerializer}
-import com.backwards.avro.{Serializer => AvroSerializer}
+import com.backwards.avro.{SchemaId, Serializer => AvroSerializer}
 import com.backwards.kafka.serialization.{DefaultKafkaSerializer, DefaultMonixSerializer}
 import com.sksamuel.avro4s.{AvroSchema, Encoder, SchemaFor}
 
@@ -23,19 +23,27 @@ object Serializer extends DefaultMonixSerializer {
       monixSerializer(new Serializer[T](AvroSerializer.Data[T]))
   }
 
-  object Binary {
-    def apply[T <: Product: SchemaFor: Encoder]: KafkaSerializer[T] =
-      serializer[T].create()
-
-    implicit def serializer[T <: Product: SchemaFor: Encoder]: MonixSerializer[T] =
-      monixSerializer(new Serializer[T](AvroSerializer.Binary[T]))
-  }
-
   object Json {
     def apply[T <: Product: SchemaFor: Encoder]: KafkaSerializer[T] =
       serializer[T].create()
 
     implicit def serializer[T <: Product: SchemaFor: Encoder]: MonixSerializer[T] =
       monixSerializer(new Serializer[T](AvroSerializer.Json[T]))
+  }
+
+  object Binary {
+    def apply[T <: Product: SchemaFor: Encoder]: KafkaSerializer[T] =
+      serializer[T].create()
+
+    implicit def serializer[T <: Product: SchemaFor: Encoder]: MonixSerializer[T] =
+      monixSerializer(new Serializer[T](AvroSerializer.Binary[T]))
+
+    object Schema {
+      def apply[T <: Product: SchemaId: SchemaFor: Encoder]: KafkaSerializer[T] =
+        serializer[T].create()
+
+      implicit def serializer[T <: Product: SchemaId: SchemaFor: Encoder]: MonixSerializer[T] =
+        monixSerializer(new Serializer[T](AvroSerializer.Binary.Schema[T]))
+    }
   }
 }
