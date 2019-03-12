@@ -6,9 +6,14 @@ import org.apache.kafka.common.serialization.{Deserializer => KafkaDeserializer}
 import com.backwards.avro.{Deserializer => AvroDeserializer}
 import com.backwards.kafka.serialization.{DefaultKafkaDeserializer, DefaultMonixDeserializer}
 import com.sksamuel.avro4s.{AvroSchema, Decoder, SchemaFor}
+import com.typesafe.scalalogging.LazyLogging
 
-class Deserializer[T <: Product: SchemaFor: Decoder](deserializer: AvroDeserializer[T]) extends DefaultKafkaDeserializer[T] {
-  val schema: Schema = AvroSchema[T]
+class Deserializer[T <: Product: SchemaFor: Decoder](deserializer: AvroDeserializer[T]) extends DefaultKafkaDeserializer[T] with LazyLogging {
+  lazy val schema: Schema = {
+    val schema = AvroSchema[T]
+    logger.info(schema toString true)
+    schema
+  }
 
   override def deserialize(topic: String, data: Array[Byte]): T =
     deserializer deserialize data

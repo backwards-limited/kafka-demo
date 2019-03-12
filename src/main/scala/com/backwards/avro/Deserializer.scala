@@ -2,13 +2,15 @@ package com.backwards.avro
 
 import java.nio.ByteBuffer
 import org.apache.avro.Schema
-import org.apache.avro.generic.{GenericDatumReader, GenericRecord}
-import org.apache.avro.io.DecoderFactory
 import com.sksamuel.avro4s._
 import com.typesafe.scalalogging.LazyLogging
 
-class Deserializer[T <: Product: SchemaFor: Decoder](avroInputStreamBuilder: AvroInputStreamBuilder[T]) {
-  val schema: Schema = AvroSchema[T]
+class Deserializer[T <: Product: SchemaFor: Decoder](avroInputStreamBuilder: AvroInputStreamBuilder[T]) extends LazyLogging {
+  lazy val schema: Schema = {
+    val schema = AvroSchema[T]
+    logger.info(schema toString true)
+    schema
+  }
 
   def deserialize(data: Array[Byte]): T = {
     val input = avroInputStreamBuilder from data build schema

@@ -50,5 +50,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
       val (key, value) = kafkaConsumer.pollHead()
       out(s"Consumed from $topic", s"key: $key, value: ${value.show}")
     }
+
+    // TODO - Avro including schema ID
   }
 }
