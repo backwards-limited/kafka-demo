@@ -7,7 +7,6 @@ import monix.eval.Task
 import monix.execution.Scheduler
 import org.apache.kafka.clients.admin.{AdminClient, NewTopic}
 import org.apache.kafka.clients.producer.RecordMetadata
-import org.apache.kafka.common.config.TopicConfig._
 import com.backwards.adt.Foo
 import com.backwards.console.Console
 import com.backwards.kafka.RecordMetadataShow._
