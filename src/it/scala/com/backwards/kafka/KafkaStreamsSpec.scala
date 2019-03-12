@@ -14,18 +14,19 @@ import com.backwards.kafka.serialization.circe.Deserializer._
 import com.backwards.kafka.serialization.circe.Serializer._
 import com.typesafe.scalalogging.LazyLogging
 
+// TODO
 class KafkaStreamsSpec extends WordSpec with MustMatchers with LazyLogging {
   implicit val scheduler: Scheduler = monix.execution.Scheduler.global
 
-  val topic = "my-topic"
+  val topic = "streams"
 
   "An ADT" should {
     "be serialized/deserialized to Kafka via Streams" in {
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("my-group-7"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("streams-group"))
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
-      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("my-foo", Foo("some-thing"))
+      val task: Task[Option[RecordMetadata]] = kafkaProducer.send("foo-key", Foo("some-thing"))
       val Some(recordMetadata) = task.runSyncUnsafe()
       logger info s"Published: ${recordMetadata.show}"
 
