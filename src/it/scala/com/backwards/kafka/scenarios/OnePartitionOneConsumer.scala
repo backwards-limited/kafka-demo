@@ -22,7 +22,7 @@ object OnePartitionOneConsumer extends App with KafkaAdmin with Console {
 
   implicit val admin: AdminClient = adminClient()
 
-  val topic: NewTopic = createTopic("one-partition-one-consumer", numberOfPartitions = 1, replicationFactor = 2  )
+  val topic: NewTopic = createTopic("one-partition-one-consumer", numberOfPartitions = 1, replicationFactor = 2)
 
   val kafkaProducer = KafkaProducer[String, Foo](topic.name, kafkaProducerConfig)
   val task: Task[Option[RecordMetadata]] = kafkaProducer.send(Foo("some-thing"))
