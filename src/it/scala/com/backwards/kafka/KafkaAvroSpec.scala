@@ -22,7 +22,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
 
       val topic = "avro-with-schema"
 
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-with-schema-group"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-with-schema-group")).init
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
@@ -40,7 +40,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
 
       val topic = "avro"
 
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-group")).init
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
@@ -58,7 +58,7 @@ class KafkaAvroSpec extends WordSpec with MustMatchers with Console {
 
       val topic = "avro-with-schema-id"
 
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-with-schema-id-group"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("avro-with-schema-id-group")).init
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 

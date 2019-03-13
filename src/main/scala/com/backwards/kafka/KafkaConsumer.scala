@@ -12,11 +12,14 @@ import com.backwards.duration.DurationOps._
 class KafkaConsumer[K, V](topic: String, config: KafkaConsumerConfig)(implicit K: Deserializer[K], V: Deserializer[V], scheduler: Scheduler) {
   import KafkaConsumer._
 
-  val underlying: ApacheKafkaConsumer[K, V] = {
+  lazy val underlying: ApacheKafkaConsumer[K, V] = {
     val observable: Task[ApacheKafkaConsumer[K, V]] = KafkaConsumerObservable.createConsumer[K, V](config, List(topic))
-    val consumer = observable runSyncUnsafe timeout
-    consumer poll timeout
-    consumer
+    observable runSyncUnsafe timeout
+  }
+
+  def init: KafkaConsumer[K, V] = {
+    underlying poll timeout
+    this
   }
 }
 
@@ -30,6 +33,7 @@ object KafkaConsumer {
     def poll(duration: Duration = timeout): Iterable[ConsumerRecord[K, V]] =
       kafkaConsumer.underlying.poll(duration).asScala
 
+    /** Convenience method that is probably only useful for testing */
     def pollHead(duration: Duration = timeout): (K, V) = {
       val consumerRecord = kafkaConsumer.underlying.poll(duration).asScala.head
       (consumerRecord.key(), consumerRecord.value())

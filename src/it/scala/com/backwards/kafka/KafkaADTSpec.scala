@@ -21,7 +21,7 @@ class KafkaADTSpec extends WordSpec with MustMatchers with Console {
 
   "An ADT" should {
     "be serialized/deserialized to Kafka" in {
-      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("adt-group"))
+      val kafkaConsumer = KafkaConsumer[String, Foo](topic, kafkaConsumerConfig.lens(_.groupId).set("adt-group")).init
 
       val kafkaProducer = KafkaProducer[String, Foo](topic, kafkaProducerConfig)
 
