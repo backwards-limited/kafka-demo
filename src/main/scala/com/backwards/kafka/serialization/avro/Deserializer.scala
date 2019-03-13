@@ -1,20 +1,12 @@
 package com.backwards.kafka.serialization.avro
 
 import monix.kafka.{Deserializer => MonixDeserializer}
-import org.apache.avro.Schema
 import org.apache.kafka.common.serialization.{Deserializer => KafkaDeserializer}
 import com.backwards.avro.{SchemaId, Deserializer => AvroDeserializer}
-import com.backwards.console.Console
 import com.backwards.kafka.serialization.{DefaultKafkaDeserializer, DefaultMonixDeserializer}
-import com.sksamuel.avro4s.{AvroSchema, Decoder, SchemaFor}
+import com.sksamuel.avro4s.{Decoder, SchemaFor}
 
-class Deserializer[T <: Product: SchemaFor: Decoder](deserializer: AvroDeserializer[T]) extends DefaultKafkaDeserializer[T] with Console {
-  val schema: Schema = {
-    val schema = AvroSchema[T]
-    out("Schema", schema toString true)
-    schema
-  }
-
+class Deserializer[T <: Product: SchemaFor: Decoder](deserializer: AvroDeserializer[T]) extends DefaultKafkaDeserializer[T] {
   override def deserialize(topic: String, data: Array[Byte]): T =
     deserializer deserialize data
 }

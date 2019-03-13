@@ -7,7 +7,7 @@ import com.sksamuel.avro4s._
 import com.typesafe.scalalogging.LazyLogging
 
 class Deserializer[T <: Product: SchemaFor: Decoder](avroInputStreamBuilder: AvroInputStreamBuilder[T]) extends Console {
-  val schema: Schema = {
+  lazy val schema: Schema = {
     val schema = AvroSchema[T]
     out("Schema", schema toString true)
     schema

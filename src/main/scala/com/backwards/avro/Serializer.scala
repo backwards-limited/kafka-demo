@@ -9,7 +9,7 @@ import com.backwards.console.Console
 import com.sksamuel.avro4s._
 
 class Serializer[T <: Product: SchemaFor: Encoder](avroOutputStreamBuilder: AvroOutputStreamBuilder[T]) extends Console {
-  val schema: Schema = {
+  lazy val schema: Schema = {
     val schema = AvroSchema[T]
     out("Schema", schema toString true)
     schema
