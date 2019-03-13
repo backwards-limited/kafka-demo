@@ -1,0 +1,34 @@
+{
+  "type":"record",
+  "name":"Foo",
+  "namespace":"com.backwards.adt",
+  "fields":[
+    {
+      "name":"thing",
+      "type":"string"
+    },
+    {
+      "name":"bar",
+      "type":[
+        "null",
+        {
+          "type":"record",
+          "name":"Bar",
+          "fields":[
+            {
+              "name":"stuff",
+              "type":{
+                "type":"array",
+                "items":"string"
+              },
+              "default":[
+
+              ]
+            }
+          ]
+        }
+      ],
+      "default":null
+    }
+  ]
+}

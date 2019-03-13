@@ -5,7 +5,7 @@ object Dependencies {
     Seq(
       scalaReflect, scalatest, scalacheck, pprint, pureConfig, logback, fansi,
       cats, simulacrum, monocle, shapeless, kittens,
-      betterFiles, circe, protobuf, avro4s, monixKafka, kafkaStreams
+      betterFiles, circe, protobuf, avro4s, monixKafka, kafkaStreams, confluentKafka, sttp
     ).flatten
 
   lazy val scalaReflect: Seq[ModuleID] = Seq(
@@ -116,5 +116,13 @@ object Dependencies {
   
   lazy val kafkaStreams: Seq[ModuleID] = Seq(
     "org.apache.kafka" %% "kafka-streams-scala" % "2.1.1"
+  )
+  
+  lazy val confluentKafka: Seq[ModuleID] = Seq(
+    "io.confluent" % "kafka-schema-registry-client" % "4.1.3"
+  )
+  
+  lazy val sttp: Seq[ModuleID] = Seq(
+    "com.softwaremill.sttp" %% "core" % "1.5.11"
   )
 }

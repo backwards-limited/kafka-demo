@@ -5,13 +5,13 @@ import java.nio.ByteBuffer
 import org.apache.avro.Schema
 import com.backwards.avro.Format._
 import com.backwards.avro.SchemaId.ops._
+import com.backwards.console.Console
 import com.sksamuel.avro4s._
-import com.typesafe.scalalogging.LazyLogging
 
-class Serializer[T <: Product: SchemaFor: Encoder](avroOutputStreamBuilder: AvroOutputStreamBuilder[T]) extends LazyLogging {
-  lazy val schema: Schema = {
+class Serializer[T <: Product: SchemaFor: Encoder](avroOutputStreamBuilder: AvroOutputStreamBuilder[T]) extends Console {
+  val schema: Schema = {
     val schema = AvroSchema[T]
-    logger.info(schema toString true)
+    out("Schema", schema toString true)
     schema
   }
 

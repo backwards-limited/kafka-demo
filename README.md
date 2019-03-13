@@ -18,5 +18,5 @@
 - [Scala](docs/scala.md)
   - Kafka with Scala
   - Protocols such as JSON and Avro
-  - Schemas
+  - [Schemas](docs/schemas.md)
   - Kafka Streams

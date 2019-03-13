@@ -14,6 +14,8 @@ $ sbt it:test
 
 Note that all tests have **no assertions** - for a demo this is for illustration purposes only (assertions are boring in a demo).
 
+Also (again for demonstration purposes), colourful console output is mainly used instead of logging.
+
 ---
 
 Kafka really only know about **bytes**.

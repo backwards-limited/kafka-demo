@@ -4,14 +4,14 @@ import monix.kafka.{Serializer => MonixSerializer}
 import org.apache.avro.Schema
 import org.apache.kafka.common.serialization.{Serializer => KafkaSerializer}
 import com.backwards.avro.{SchemaId, Serializer => AvroSerializer}
+import com.backwards.console.Console
 import com.backwards.kafka.serialization.{DefaultKafkaSerializer, DefaultMonixSerializer}
 import com.sksamuel.avro4s.{AvroSchema, Encoder, SchemaFor}
-import com.typesafe.scalalogging.LazyLogging
 
-class Serializer[T <: Product: SchemaFor: Encoder](serializer: AvroSerializer[T]) extends DefaultKafkaSerializer[T] with LazyLogging {
-  lazy val schema: Schema = {
+class Serializer[T <: Product: SchemaFor: Encoder](serializer: AvroSerializer[T]) extends DefaultKafkaSerializer[T] with Console {
+  val schema: Schema = {
     val schema = AvroSchema[T]
-    logger.info(schema toString true)
+    out("Schema", schema toString true)
     schema
   }
 
