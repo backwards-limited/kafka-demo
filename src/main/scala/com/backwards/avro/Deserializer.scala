@@ -33,6 +33,7 @@ object Deserializer extends LazyLogging {
   object Binary {
     def apply[T <: Product: SchemaFor: Decoder]: Deserializer[T] = new Deserializer[T](AvroInputStream.binary[T])
 
+    // TODO - WIP
     object Schema {
       def apply[T <: Product: SchemaId: SchemaFor: Decoder]: Deserializer[T] = {
         val avroInputStreamBuilder: AvroInputStreamBuilder[T] = AvroInputStream.binary[T]

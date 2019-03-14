@@ -36,6 +36,7 @@ object Serializer {
   object Binary {
     def apply[T <: Product: SchemaFor: Encoder]: Serializer[T] = new Serializer[T](AvroOutputStream.binary[T])
 
+    // TODO - WIP
     object Schema {
       def apply[T <: Product: SchemaId: SchemaFor: Encoder]: Serializer[T] = {
         val avroOutputStreamBuilder: AvroOutputStreamBuilder[T] = AvroOutputStream.binary[T]
@@ -45,6 +46,8 @@ object Serializer {
             val baos = new ByteArrayOutputStream()
             baos.write(magicByte)
             baos.write(ByteBuffer.allocate(4).putInt(t.schemaId).array())
+
+            // TODO - Interact with SchemaRegistry (a side effect)
 
             val output = avroOutputStreamBuilder to baos build schema
             output write t
