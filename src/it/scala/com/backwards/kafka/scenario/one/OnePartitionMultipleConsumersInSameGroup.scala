@@ -1,9 +1,9 @@
-package com.backwards.kafka.scenarios.one
+package com.backwards.kafka.scenario.one
 
 import scala.language.postfixOps
 import io.circe.generic.auto._
 import com.backwards.adt.Foo
-import com.backwards.kafka.scenarios.ScenarioFixture
+import com.backwards.kafka.scenario.ScenarioFixture
 import com.backwards.kafka.serialization.circe.Deserializer._
 import com.backwards.kafka.serialization.circe.Serializer._
 

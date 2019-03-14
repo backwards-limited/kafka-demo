@@ -1,4 +1,4 @@
-package com.backwards.kafka.scenarios
+package com.backwards.kafka.scenario
 
 import java.io.InputStream
 import scala.language.higherKinds
