@@ -32,11 +32,5 @@ object KafkaConsumer {
   implicit class KafkaConsumerOps[K, V](kafkaConsumer: KafkaConsumer[K, V]) {
     def poll(duration: Duration = timeout): Iterable[ConsumerRecord[K, V]] =
       kafkaConsumer.underlying.poll(duration).asScala
-
-    /** Convenience method that is probably only useful for testing */
-    def pollHead(duration: Duration = timeout): (K, V) = {
-      val consumerRecord = kafkaConsumer.underlying.poll(duration).asScala.head
-      (consumerRecord.key(), consumerRecord.value())
-    }
   }
 }

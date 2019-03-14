@@ -12,6 +12,7 @@ import org.scalatest.{MustMatchers, WordSpec}
 import com.backwards.adt.Foo
 import com.backwards.console.Console
 import com.backwards.kafka.RecordMetadataShow._
+import com.backwards.kafka.ConsumerRecordShow._
 import com.backwards.kafka.serialization.circe.Deserializer._
 import com.backwards.kafka.serialization.circe.Serializer._
 
@@ -30,8 +31,8 @@ class KafkaJsonSpec extends WordSpec with MustMatchers with Console {
       val Some(recordMetadata) = task.runSyncUnsafe()
       out(s"Published to $topic", recordMetadata.show)
 
-      val (key, value) = kafkaConsumer.pollHead()
-      out(s"Consumed from $topic", s"key: $key, value: ${value.spaces2}")
+      val consumerRecord = kafkaConsumer.poll().head
+      out(s"Consumed from $topic", s"${consumerRecord.show}")
     }
   }
 }

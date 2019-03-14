@@ -44,6 +44,10 @@ A Kafka cluster consists of one or more **servers** / **nodes** / **brokers** wh
 
 The **records** (messages) in the partitions are each assigned a **sequential ID** number called the **offset** that uniquely identifies each **record** with the partition.
 
+Auto commit ???
+
+Manual via consumer.commitSync with the config enable.auto.commit = false
+
 ---
 
 
