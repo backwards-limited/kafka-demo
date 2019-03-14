@@ -14,18 +14,8 @@ def project(id: String, base: File): Project =
     .settings(promptTheme := com.scalapenos.sbt.prompt.PromptThemes.ScalapenosTheme)
     .settings(inConfig(IT)(Defaults.testSettings))
     .settings(Defaults.itSettings)
-    .settings(javaOptions in Test ++=
-      Seq(
-        "-Dconfig.resource=application.test.conf",
-        "-Dlogback.configurationFile=./src/test/resources/logback-test.xml"
-      )
-    )
-    .settings(javaOptions in IT ++=
-      Seq(
-        "-Dconfig.resource=application.it.conf",
-        "-Dlogback.configurationFile=./src/it/resources/logback-it.xml"
-      )
-    )
+    .settings(javaOptions in Test ++= Seq("-Dconfig.resource=application.test.conf"))
+    .settings(javaOptions in IT ++= Seq("-Dconfig.resource=application.it.conf"))
     .settings(
       resolvers ++= Seq(
         Resolver.sonatypeRepo("releases"),
