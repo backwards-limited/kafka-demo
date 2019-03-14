@@ -1,6 +1,6 @@
 package com.backwards.kafka.scenario
 
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.MILLISECONDS
 import scala.concurrent.duration.{Duration, _}
 import scala.language.postfixOps
 import cats.syntax.show._
@@ -50,7 +50,7 @@ trait ScenarioFixture extends KafkaAdmin with Console {
       val Some(recordMetadata) = task.runSyncUnsafe()
       out(s"Published to $topic", recordMetadata.show)
 
-      TimeUnit.MILLISECONDS.sleep(producePause.toMillis)
+      MILLISECONDS sleep producePause.toMillis
     }
   }
 

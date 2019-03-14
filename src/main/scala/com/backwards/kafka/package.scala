@@ -8,6 +8,7 @@ import org.apache.kafka.streams.StreamsConfig
 import com.backwards.adt.Merge.ops._
 import com.typesafe.scalalogging.LazyLogging
 
+// TODO - Rewrite
 package object kafka extends LazyLogging {
   val randomWhenEmpty: String => String = { s =>
     if (s == null || s.isEmpty) UUID.randomUUID().toString else s

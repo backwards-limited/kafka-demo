@@ -1,7 +1,7 @@
 package com.backwards.kafka
 
 import java.util.Properties
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit._
 import scala.annotation.tailrec
 import scala.collection.JavaConverters._
 import scala.util.Try
@@ -25,7 +25,10 @@ trait KafkaAdmin extends JavaOps with Console {
       adminClient createTopics topic
       out(s"Topic ${topic.name} configuration", adminClient.describeTopics(topic.name).all.get.asScala.mkString(", "))
       topic
-    } getOrElse createTopic(name, numberOfPartitions, replicationFactor)
+    } getOrElse {
+      MILLISECONDS sleep 500
+      createTopic(name, numberOfPartitions, replicationFactor)
+    }
   }
 
   @tailrec
@@ -33,7 +36,7 @@ trait KafkaAdmin extends JavaOps with Console {
     val result: DeleteTopicsResult = adminClient deleteTopics topic
 
     if (adminClient.listTopics().names().get().asScala.contains(topic)) {
-      TimeUnit.SECONDS.sleep(1)
+      SECONDS sleep 1
       delete(topic)
     } else {
       result
