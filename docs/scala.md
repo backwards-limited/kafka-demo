@@ -16,6 +16,20 @@ Note that all tests have **no assertions** - for a demo this is for illustration
 
 Also (again for demonstration purposes), colourful console output is mainly used instead of logging.
 
+## Run
+
+```bash
+$ sbt it:run
+
+Multiple main classes detected, select one to run:
+
+ [1] com.backwards.kafka.scenarios.OnePartitionMultipleConsumersInSameGroup
+ [2] com.backwards.kafka.scenarios.OnePartitionOneConsumer
+ ...
+```
+
+
+
 ---
 
 Kafka really only know about **bytes**.

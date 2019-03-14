@@ -98,7 +98,7 @@ object Dependencies {
   }
 
   lazy val protobuf: Seq[ModuleID] = Seq(
-    "com.google.protobuf" % "protobuf-java" % "3.7.0-rc1" force()
+    "com.google.protobuf" % "protobuf-java" % "3.7.0" force()
   )
   
   lazy val avro4s: Seq[ModuleID] = {
