@@ -1,4 +1,4 @@
-addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.1.0-M11")
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.1.0-M13-1")
 
 addSbtPlugin("com.scalapenos" % "sbt-prompt" % "1.0.2")
 

@@ -7,7 +7,7 @@ object Dependencies {
       cats, simulacrum, monocle, shapeless, kittens,
       betterFiles, circe, protobuf, avro4s, monixKafka, kafkaStreams, confluentKafka, sttp
     ).flatten
-
+  
   lazy val scalaReflect: Seq[ModuleID] = Seq(
     "org.scala-lang" % "scala-reflect" % BuildProperties("scala.version")
   )

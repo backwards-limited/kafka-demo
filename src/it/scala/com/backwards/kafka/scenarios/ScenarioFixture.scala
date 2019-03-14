@@ -36,6 +36,9 @@ trait ScenarioFixture extends KafkaAdmin with Console {
     }
   }
 
+  def doConsume[V: Deserializer](group: String, topic: String, name: String): Task[Unit] =
+    doConsume(group, topic, Option(name))
+
   def doConsume[V: Deserializer](group: String): (String, String) => Task[Unit] =
     (name, topic) => doConsume(group, topic, Option(name))
 
