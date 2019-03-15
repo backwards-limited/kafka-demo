@@ -8,6 +8,10 @@ A commit log (also referred to as write-ahead log, transaction log) is a persist
 
 ![Commit log](images/commit-log.png)
 
+---
+
+![Multiple partitions](images/multiple-partitions.png)
+
 ## Topic
 
 A **topic** is a **distributed log file**, where distribution is achieved via **partitions**.
@@ -44,15 +48,7 @@ A Kafka cluster consists of one or more **servers** / **nodes** / **brokers** wh
 
 The **records** (messages) in the partitions are each assigned a **sequential ID** number called the **offset** that uniquely identifies each **record** with the partition.
 
-Auto commit ???
-
-Manual via consumer.commitSync with the config enable.auto.commit = false
-
----
-
-
-
-
+Offset can be set through **auto commit** or **manually**.
 
 A producer, whether a CLI or programmatic client, connects to a Kafka cluster by providing a list of Kafka brokers.
 
@@ -62,14 +58,8 @@ Upon publishing a message to a particular topic, a client is first given the nec
 
 Consumers pull messages from a topic by polling at regular intervals. Each time a consumer reads messages it needs to keep track of the (log) offset.
 
-High Watermark?
-
 ## Zookeeper
 
-Create and manage topics.
-
-Assigns the leader for each partition.
-
-
-
-Go through the scenario of publishing a message to a topic with one partition and replication of one. Then keep publishing messages to show that we basically have a bottleneck. Then add a partition. Then add replication…….
+- A distributed key-value store.
+- Commonly used to store metadata and handle the mechanics of clustering (heartbeats, distributing updates/configurations, etc).
+- It allows clients of the service (Kafka brokers) to subscribe and have changes sent to them once they happen. This is how brokers know when to switch partition leaders.

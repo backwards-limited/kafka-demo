@@ -18,7 +18,7 @@ Also (again for demonstration purposes), colourful console output is mainly used
 
 ## Run Scenarios
 
-There are multiple scenarios that can be run within the **it** directory where each scenario is made up of individual applications that should be executed in **order**. The following will show all applications available but you will have to actually view the **source code** to see the required order to run said applications.
+There are multiple scenarios that can be run within the **it** directory where each scenario is made up of individual applications that should be executed in **order**. The following will show all applications available but you will have to actually view the **source code** to see the required order to run said applications - Intellij helps.
 
 ```bash
 $ sbt it:run
@@ -44,28 +44,18 @@ When our ADT meets Kafka, we need to **serialize** our ADT to bytes to be able t
 
 ## JSON
 
-
+JSON is used a lot with micro services, especially when third parties interact. However, internally other formats are more appropriate, such as Avro or Protobuf.
 
 ## Avro
-
-CLI
 
 ```bash
 $ brew install avro-tools
 ```
 
-JSON to binary Avro
+Provides CLI tools to view Avro such as converting binary Avro to JSON.
 
-Without compression
-avro-tools fromjson --schema-file twitter.avsc twitter.json > twitter.avro
+What exactly is [Avro](https://avro.apache.org/docs/current/)?
 
-With Snappy compression
-avro-tools fromjson --codec snappy --schema-file twitter.avsc twitter.json > twitter.snappy.avro
+Avro is a language-independent serialization library. To do this Avro uses a schema which is one of the core components. It **stores the schema in a file for further data processing**.
 
-Binary Avro to JSON
-avro-tools tojson twitter.avro > twitter.json
-avro-tools tojson twitter.snappy.avro > twitter.json
-
-Retrieve Avro schema from binary Avro
-avro-tools getschema twitter.avro > twitter.avsc
-avro-tools getschema twitter.snappy.avro > twitter.avsc
+A key feature of Avro is robust support for data schemas that change over time - often called schema evolution. Avro handles schema changes like missing fields, added fields and changed fields; as a result, old programs can read new data and new programs can read old data.

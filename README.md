@@ -1,5 +1,8 @@
 # Kafka
 
+Find out about Kafka; Start up Kafka; Interact with Kafka from CLI and Scala.
+As well as the following agenda, there is the equivalent as [Keynote slides](docs/presentation.key).
+
 - [Kafka?](docs/about.md)
   - Advantages / Disadvantages
   - Alternatives
