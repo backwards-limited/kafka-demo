@@ -1,4 +1,4 @@
-package com.backwards.kafka.scenario.four
+package com.backwards.kafka.scenario.five
 
 import scala.language.postfixOps
 import io.circe.generic.auto._
