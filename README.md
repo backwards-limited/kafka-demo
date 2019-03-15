@@ -1,13 +1,13 @@
 # Kafka
 
 - [Kafka?](docs/about.md)
-  - Advantages/Disadvantages
+  - Advantages / Disadvantages
   - Alternatives
 - [Architecture](docs/architecture.md)
   - Terminology
   - Cluster
   - Zookeeper
-  - Persistence/Commit logs aka Topics
+  - Persistence / Commit logs (aka Topics)
   - Partitions
   - Replication
 - [Setup](docs/setup.md)

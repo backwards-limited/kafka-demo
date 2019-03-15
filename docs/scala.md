@@ -16,19 +16,21 @@ Note that all tests have **no assertions** - for a demo this is for illustration
 
 Also (again for demonstration purposes), colourful console output is mainly used instead of logging.
 
-## Run
+## Run Scenarios
+
+There are multiple scenarios that can be run within the **it** directory where each scenario is made up of individual applications that should be executed in **order**. The following will show all applications available but you will have to actually view the **source code** to see the required order to run said applications.
 
 ```bash
 $ sbt it:run
 
 Multiple main classes detected, select one to run:
 
- [1] com.backwards.kafka.scenarios.OnePartitionMultipleConsumersInSameGroup
- [2] com.backwards.kafka.scenarios.OnePartitionOneConsumer
+ [1] com.backwards.kafka.scenario.Schemas
+ [2] com.backwards.kafka.scenario.SimplestOnePartitionOneConsumer
+ [3] com.backwards.kafka.scenario.four.ConsumerA
+ [4] com.backwards.kafka.scenario.four.ConsumerB
  ...
 ```
-
-
 
 ---
 
