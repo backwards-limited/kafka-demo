@@ -12,8 +12,6 @@ object Schemas extends App with SchemaApi {
   out("Registered schemas", schemaRegistry.getAllSubjects)
 
   register("employee", Resource getAsStream "employee.avsc")
-
-  register("foo", Resource getAsStream "foo.avsc")
 }
 
 trait SchemaApi extends Console {

@@ -10,8 +10,8 @@ import com.backwards.kafka.serialization.circe.Serializer._
 /**
   * Run each App (object) in order
   */
-trait MultiplePartitionSingleConsumer extends App with Scenario {
-  val topic: String = topicOf[MultiplePartitionSingleConsumer]
+trait MultiplePartitionsSingleConsumer extends App with Scenario {
+  val topic: String = topicOf[MultiplePartitionsSingleConsumer]
 
   val group: String = topic
 }
@@ -20,14 +20,14 @@ trait MultiplePartitionSingleConsumer extends App with Scenario {
   * Creating a topic with `replicationFactor` > 1 requires a cluster of at least 2 brokers
   * e.g. use docker-compose-cluster.yml
   */
-object CreateTopic extends MultiplePartitionSingleConsumer {
+object CreateTopic extends MultiplePartitionsSingleConsumer {
   createTopic(topic, numberOfPartitions = 4, replicationFactor = 1)
 }
 
-object Consumer extends MultiplePartitionSingleConsumer {
+object Consumer extends MultiplePartitionsSingleConsumer {
   doConsume[Foo](group, topic).runSyncUnsafe()
 }
 
-object Producer extends MultiplePartitionSingleConsumer {
+object Producer extends MultiplePartitionsSingleConsumer {
   doProduce(Foo("some-thing"), topic).runSyncUnsafe()
 }
