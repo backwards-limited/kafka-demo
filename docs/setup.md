@@ -19,10 +19,14 @@ If you don't have [Homebrew](https://brew.sh) on your Mac then first run the fol
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-First install Java:
+First install Java and Scala, along with the Scala build tool sbt:
 
 ```bash
 $ brew cask install java
+
+$ brew install scala
+
+$ brew install sbt
 ```
 
 And now install Kafka, which will include Zookeeper:

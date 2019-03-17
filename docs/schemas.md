@@ -21,4 +21,4 @@ $ curl http://localhost:8081/subjects
 
 ## Scala
 
-Take a look at [Schemas.scala](../src/it/scala/com/backwards/kafka/scenario/Schemas.scala) which is an application to register the Avro schema [employee.avsc](../src/it/resources/employee.avsc).
+Take a look at [Schemas.scala](../src/it/scala/com/backwards/kafka/Schemas.scala) which is an application to register the Avro schema [employee.avsc](../src/it/resources/employee.avsc).

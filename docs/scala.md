@@ -18,7 +18,7 @@ Also (again for demonstration purposes), colourful console output is mainly used
 
 ## Run Scenarios
 
-There are multiple scenarios that can be run within the **it** directory where each scenario is made up of individual applications that should be executed in **order**. The following will show all applications available but you will have to actually view the **source code** to see the required order to run said applications - Intellij helps.
+There are multiple scenarios that can be run within the **it** directory where each scenario is made up of individual applications that should be executed in **order**. The following will show all applications available but you will have to actually view the **source code** to see the required order to run said applications.
 
 ```bash
 $ sbt it:run
@@ -31,6 +31,34 @@ Multiple main classes detected, select one to run:
  [4] com.backwards.kafka.scenario.four.ConsumerB
  ...
 ```
+
+The easiest way to run the scenarios (to get the correct ordering of processes), is within IntelliJ.
+
+E.g. scenario [OnePartitionMultipleConsumersInSameGroup.scala](../src/it/scala/com/backwards/kafka/two/OnePartitionMultipleConsumersInSameGroup.scala):
+
+- Run **CreateTopic**
+
+  ![Create topic](images/create-topic.png)
+
+![Create topic popup](images/create-topic-popup.png)
+
+- Run **ConsumerA**
+
+  ![Consumer A](images/consumera.png)
+
+![Consumer A](images/consumera-popup.png)
+
+- Run **ConsumerB**
+
+  ![Consumer B](images/consumerb.png)
+
+![Consumer B popup](images/consumerb-popup.png)
+
+- Run **Producer**
+
+  ![Producer](images/producer.png)
+
+![Producer popup](images/producer-popup.png)
 
 ---
 

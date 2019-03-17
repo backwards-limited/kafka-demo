@@ -69,7 +69,6 @@ Uncoupled:
 
 - Actual messaging systems
 
-- - Rabbit MQ
+  - Rabbit MQ
   - Active MQ
   - etc.
-
