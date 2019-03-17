@@ -43,7 +43,7 @@ Uncoupled:
 
 ![Uncoupled](images/uncoupled.png)
 
-## Advantages / Disadvantages
+## Advantages
 
 - High-throughput: Kafka is capable of handling high-velocity and high-volume data using not so large hardware. It is capable of supporting message throughput of thousands of messages per second.
 - Low latency: Kafka is able to handle these messages with very low latency of the range of milliseconds, demanded by most of new use cases.
