@@ -34,31 +34,31 @@ Multiple main classes detected, select one to run:
 
 The easiest way to run the scenarios (to get the correct ordering of processes), is within IntelliJ.
 
-E.g. scenario [OnePartitionMultipleConsumersInSameGroup.scala](../src/it/scala/com/backwards/kafka/two/OnePartitionMultipleConsumersInSameGroup.scala):
+E.g. scenario [OnePartitionMultipleConsumersInSameGroup.scala](../src/it/scala/com/backwards/kafka/scenario/two/OnePartitionMultipleConsumersInSameGroup.scala):
 
 - Run **CreateTopic**
 
   ![Create topic](images/create-topic.png)
 
-![Create topic popup](images/create-topic-popup.png)
+  ![Create topic popup](images/create-topic-popup.png)
 
 - Run **ConsumerA**
 
   ![Consumer A](images/consumera.png)
 
-![Consumer A](images/consumera-popup.png)
+  ![Consumer A](images/consumera-popup.png)
 
 - Run **ConsumerB**
 
   ![Consumer B](images/consumerb.png)
 
-![Consumer B popup](images/consumerb-popup.png)
+  ![Consumer B popup](images/consumerb-popup.png)
 
 - Run **Producer**
 
   ![Producer](images/producer.png)
 
-![Producer popup](images/producer-popup.png)
+  ![Producer popup](images/producer-popup.png)
 
 ---
 
