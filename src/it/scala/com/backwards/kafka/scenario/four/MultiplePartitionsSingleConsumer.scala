@@ -8,7 +8,20 @@ import com.backwards.kafka.serialization.circe.Deserializer._
 import com.backwards.kafka.serialization.circe.Serializer._
 
 /**
-  * Run each App (object) in order
+  * Make sure Kafka is running e.g. within IntelliJ right click and run "docker-compose-lenses.yml" or from command line:
+  * docker-compose -f docker-compose-lenses.yml up
+  *
+  * Run each App (object) in order i.e.
+  * <pre>
+  *   - Run "CreateTopic" from IntelliJ or from command line:
+  *     sbt "it:runMain com.backwards.kafka.scenario.four.CreateTopic"
+  *
+  *   - Run "Consumer" from IntelliJ or from command line:
+  *     sbt "it:runMain com.backwards.kafka.scenario.four.Consumer"
+  *
+  *   - Run "Producer" from IntelliJ or from command line:
+  *     sbt "it:runMain com.backwards.kafka.scenario.four.Producer"
+  * </pre>
   */
 trait MultiplePartitionsSingleConsumer extends App with Scenario {
   val topic: String = topicOf[MultiplePartitionsSingleConsumer]
