@@ -39,9 +39,9 @@ Coupled:
 
 ![Coupled](images/coupled.png)
 
-Uncoupled:
+Decoupled:
 
-![Uncoupled](images/uncoupled.png)
+![Decoupled](images/uncoupled.png)
 
 ## Advantages
 
